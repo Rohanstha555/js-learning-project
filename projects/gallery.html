@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        /* background: linear-gradient(135deg, #f6f8ff, #e8f7f1); */
+        background-color: #414141;
+    }
+    .images {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .images img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(18, 38, 63, 0.08);
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .images img:hover {
+        transform: scale(1.05);
+    }
+    .display-img {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 20px;
+        border: 2px solid #e6e9ef;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(18, 38, 63, 0.08);
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+<body>
+    <div class="display-img" id="display-img">
+
+    </div>
+
+    <div class="images" id="images">
+        <img class="img" id="img1" src="images/bracelet1.jpg" alt="Photo 1">
+        <img class="img" id="img2" src="images/c-bracelet.jpg" alt="Photo 2">
+        <img class="img" id="img3" src="images/c-necklace.jpg" alt="Photo 3">
+        <img class="img" id="img4" src="images/e-1.png" alt="Photo 4">
+        <img class="img" id="img5" src="images/earring.jpeg" alt="Photo 5">
+    </div>
+</body>
+<script src="gallery.js"></script>
+</html>
