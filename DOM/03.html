@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="lang-list">
+        <li>js</li>
+    </ul>
+
+</body>
+
+<script>
+    function addelement(lang){
+        const li = document.createElement("li")
+        li.innerHTML = `${lang}`
+        document.querySelector(".lang-list").appendChild(li)
+    }
+    addelement("python")
+
+
+    //optimized version
+    function optiadd(lang){
+        const li = document.createElement("li")
+        li.appendChild(document.createTextNode(lang))
+        document.querySelector(".lang-list").appendChild(li)
+    }
+    optiadd("java")
+
+
+    //edit
+    const firstchild = document.querySelector(".lang-list li:nth-child(1)")
+    console.log(firstchild)
+    // first.textContent = "mongoDB"
+    const newli = document.createElement("li")
+    newli.textContent = "mongoDB"
+    firstchild.replaceWith(newli)
+
+    const lastlang = document.querySelector(".lang-list li:last-child")
+    lastlang.remove()
+
+</script>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple BMI Generator</title>
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #f6f8ff, #e8f7f1);
+      }
+      .card {
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(18, 38, 63, 0.08);
+        width: 360px;
+        max-width: 92%;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 12px;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        margin-top: 10px;
+        color: #333;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e6e9ef;
+        border-radius: 8px;
+        margin-top: 6px;
+        font-size: 15px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+      .btn {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: 0;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn.calculate {
+        background: #0b6bff;
+        color: #fff;
+      }
+      .btn.reset {
+        background: #eef2ff;
+        color: #0b6bff;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        background: #fbfbff;
+        border: 1px dashed transparent;
+        text-align: center;
+      }
+      .bmi-value {
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .bmi-category {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+      .hint {
+        font-size: 12px;
+        color: #666;
+        margin-top: 8px;
+      }
+      small {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card" role="main">
+      <h1>Simple BMI Generator</h1>
+
+      <label for="weight">Weight (kg)</label>
+      <input
+        id="weight"
+        type="number"
+        inputmode="decimal"
+        min="1"
+        step="0.1"
+        placeholder="e.g. 70.5"
+      />
+
+      <label for="height">Height (cm)</label>
+      <input
+        id="height"
+        type="number"
+        inputmode="decimal"
+        min="50"
+        max="300"
+        step="0.1"
+        placeholder="e.g. 175"
+      />
+
+      <div class="row" style="margin-top: 14px">
+        <button class="btn calculate" id="calcBtn">Calculate</button>
+        <button class="btn reset" id="resetBtn">Reset</button>
+      </div>
+
+      <div id="result" class="result" >
+      </div>
+    </div>
+  </body>
+  <script src="bmi.js"></script>
+</html>
