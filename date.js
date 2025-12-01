@@ -1,6 +1,6 @@
 // dates and time
 
-// let date = document.getElementById("date");
+let date = document.getElementById("date");
 // let newdate = new Date();
 // date.innerHTML=`${newdate}`;
 // date.innerHTML=`${newdate.toLocaleString()}`;
@@ -18,18 +18,19 @@
 // date.innerHTML = `${createddate.getTime()}`; //turning manual values into milisec
 // date.innerHTML = `${Math.round(Date.now()/1000)}`; //into sec
 
-// let newdate = new Date();
+let newdate = new Date();
 //  date.innerHTML=`${newdate.getDay()}`;
 //  date.innerHTML=`${newdate.getMonth()}`;
 
 
 // date.innerHTML=`${newdate}`;
 
-//  date.innerHTML=`${newdate.toLocaleString("default", {
-//     weekday: "long",
-//     year: "numeric",
-//     month: "numeric",
-//     day: "numeric"
-//  })}`;
+ date.innerHTML=`${newdate.toLocaleString("default", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+ })}`;
+
 
 

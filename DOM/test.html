@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aava Treasures - Luxury Jewelry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fdfbf7 0%, #f8f3ed 100%);
+            font-family: 'Inter', sans-serif;
+            color: #2d1f12;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4a574 0%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .nav_bar ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav_bar ul li a {
+            text-decoration: none;
+            color: #2d1f12;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav_bar ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #d4a574, #b8860b);
+            transition: width 0.3s ease;
+        }
+
+        .nav_bar ul li a:hover {
+            color: #b8860b;
+        }
+
+        .nav_bar ul li a:hover::after {
+            width: 100%;
+        }
+
+        .right_part {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e8dcc8;
+            border-radius: 25px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: #d4a574;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.2);
+        }
+
+        .search-box input {
+            border: none;
+            padding: 10px 20px;
+            outline: none;
+            font-size: 14px;
+            width: 200px;
+            transition: width 0.3s ease;
+        }
+
+        .search-box input:focus {
+            width: 250px;
+        }
+
+        .search-box button {
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .search-box button:hover {
+            transform: scale(1.05);
+        }
+
+        .cart, .profile {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cart:hover, .profile:hover {
+            transform: scale(1.1);
+        }
+
+        .profile {
+            display: flex;
+            gap: 15px;
+        }
+
+        .log, .regs {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .log {
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            color: white;
+        }
+
+        .log:hover {
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .regs {
+            border: 2px solid #d4a574;
+            color: #2d1f12;
+        }
+
+        .regs:hover {
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            color: white;
+        }
+
+        /* Hero Slider */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .slide-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .slide-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 165, 116, 0.5);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d1f12;
+            border: none;
+            font-size: 24px;
+            padding: 15px 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .prev { left: 30px; }
+        .next { right: 30px; }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin: 60px 0 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #d4a574, #b8860b);
+        }
+
+        /* Categories */
+        .categories-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 0 60px 80px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .category {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
+            z-index: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .category:hover::before {
+            opacity: 0.8;
+        }
+
+        .category img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .category:hover img {
+            transform: scale(1.1);
+        }
+
+        .category span {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: #2d1f12;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 18px;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category:hover span {
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            color: white;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* New Arrivals */
+        .latest {
+            padding: 80px 60px;
+            background: linear-gradient(135deg, #fff9f0 0%, #fdf5eb 100%);
+        }
+
+        .new-arrivals-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .new-arrivals {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            /* transition: all 0.4s ease; */
+            cursor: pointer;
+        }
+
+        .new-arrivals:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .new-arrivals img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .new-arrivals:hover img {
+            transform: scale(1.05);
+        }
+
+        .new-arrivals .text {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .text .name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d1f12;
+            margin-bottom: 8px;
+        }
+
+        .text .c-s {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .price-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .price-tag .price {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4a574, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Section */
+        .about-us {
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            text-align: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #5a4a3b;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2d1f12 0%, #1a120a 100%);
+            color: #e8dcc8;
+            padding: 60px 60px 30px;
+        }
+
+        .f-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(232, 220, 200, 0.2);
+        }
+
+        .f-about .logo {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .f-about p {
+            line-height: 1.8;
+            color: #c4b5a0;
+        }
+
+        .f-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .f-links ul {
+            list-style: none;
+        }
+
+        .f-links ul li {
+            margin: 10px 0;
+        }
+
+        .f-links ul li a {
+            color: #c4b5a0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .f-links ul li a:hover {
+            color: #d4a574;
+        }
+
+        .connect {
+            text-align: center;
+        }
+
+        .f-img img {
+            width: 150px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .instagram-gradient {
+            background: linear-gradient(to right, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .f-bottom {
+            text-align: center;
+            padding-top: 30px;
+            color: #c4b5a0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .nav_bar ul {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .slider {
+                height: 400px;
+            }
+
+            .slide-title {
+                font-size: 36px;
+            }
+
+            .categories-slots,
+            .new-arrivals-slots {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .f-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">AAVA</div>
+        
+        <div class="nav_bar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#latest">New Arrivals</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="right_part">
+            <div class="search-box">
+                <input type="text" placeholder="Search jewelry...">
+                <button>🔍</button>
+            </div>
+            <div class="profile">
+                <div class="log">Login</div>
+                <div class="regs">Register</div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="slider" id="home">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600&h=900&fit=crop" alt="Luxury Jewelry">
+            <div class="slide-overlay">
+                <div class="slide-title">Timeless Elegance</div>
+                <div class="slide-subtitle">Discover our exquisite collection</div>
+                <a href="#" class="buy-btn">Shop Now</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600&h=900&fit=crop" alt="Gold Jewelry">
+            <div class="slide-overlay">
+                <div class="slide-title">Crafted with Love</div>
+                <div class="slide-subtitle">Handmade pieces for special moments</div>
+                <a href="#" class="buy-btn">Explore Collection</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=1600&h=900&fit=crop" alt="Diamond Jewelry">
+            <div class="slide-overlay">
+                <div class="slide-title">Shine Bright</div>
+                <div class="slide-subtitle">New arrivals just for you</div>
+                <a href="#" class="buy-btn">View New Items</a>
+            </div>
+        </div>
+        <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
+        <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
+    </div>
+
+    <div id="categories">
+        <div class="section-title">Shop By Category</div>
+        <div class="categories-slots">
+            <div class="category">
+                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" alt="Earrings">
+                <span>Earrings</span>
+            </div>
+            <div class="category">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" alt="Bracelets">
+                <span>Bracelets</span>
+            </div>
+            <div class="category">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=800&fit=crop" alt="Necklaces">
+                <span>Necklaces</span>
+            </div>
+            <div class="category">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=800&fit=crop" alt="Rings">
+                <span>Rings</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="latest" id="latest">
+        <div class="section-title">New Arrivals</div>
+        <div class="new-arrivals-slots">
+            <div class="new-arrivals">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop" alt="Gold Earrings">
+                <div class="text">
+                    <div class="name">Golden Elegance Earrings</div>
+                    <div class="c-s">Earrings</div>
+                    <div class="price-tag">
+                        <div class="price">$199</div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-arrivals">
+                <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=400&h=400&fit=crop" alt="Diamond Necklace">
+                <div class="text">
+                    <div class="name">Crystal Dreams Necklace</div>
+                    <div class="c-s">Necklace</div>
+                    <div class="price-tag">
+                        <div class="price">$349</div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-arrivals">
+                <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&h=400&fit=crop" alt="Silver Ring">
+                <div class="text">
+                    <div class="name">Eternal Promise Ring</div>
+                    <div class="c-s">Ring</div>
+                    <div class="price-tag">
+                        <div class="price">$279</div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-arrivals">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop" alt="Gold Bracelet">
+                <div class="text">
+                    <div class="name">Luxe Chain Bracelet</div>
+                    <div class="c-s">Bracelet</div>
+                    <div class="price-tag">
+                        <div class="price">$229</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-us" id="about">
+        <div class="section-title">About Aava Treasures</div>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=500&fit=crop" alt="Jewelry Making">
+            </div>
+            <div class="about-text">
+                <h2>Crafting Timeless Beauty</h2>
+                <p>
+                    Aava Treasures is a celebration of elegance, tradition, and craftsmanship. We offer a curated collection of handmade and luxurious jewelry pieces that reflect timeless beauty.
+                </p>
+                <p>
+                    Whether you're looking for everyday charm or statement pieces, our collection helps you express yourself with grace and brilliance. Every jewel tells a story—and we're here to help you shine through yours.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343a?w=400&h=500&fit=crop" alt="Jewelry Display">
+            </div>
+        </div>
+    </section>
+
+    <section class="footer" id="footer">
+        <div class="f-container">
+            <div class="f-about">
+                <div class="logo">AAVA</div>
+                <p>Discover timeless elegance with Aava Treasures. Unique handmade jewelry to elevate every occasion.</p>
+            </div>
+
+            <div class="f-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#latest">New Arrivals</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+
+            <div class="connect">
+                <div class="f-img">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://instagram.com/aavatreasures" alt="QR Code">
+                    <div class="instagram-gradient">Follow us on Instagram</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f-bottom">
+            <p>&copy; 2025 Aava Treasures. All rights reserved.</p>
+        </div>
+    </section>
+
+    <script>
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+
+        // Auto-advance slider
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category, .new-arrivals').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

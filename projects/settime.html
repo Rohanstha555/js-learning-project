@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Set Time Project</h1>
+    <p>This is the Set Time project page.</p>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    let start = document.getElementById('start')
+    let stopper = document.getElementById('stop')
+    let interval;
+
+    const running = () => {
+        console.log('Interval running')
+    }
+
+    start.addEventListener('click', () => {
+         interval = setInterval(running, 1000)
+    });
+
+    stopper.addEventListener('click', () =>{
+        clearInterval(interval)
+        console.log('Interval stopped')
+    })
+    
+</script>
+</html>
