@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="name"></h5>
+            <p class="card-text" id="followers"></p>
+
+
+    </div>
+</body>
+
+<script>
+    const requrl = "https://api.github.com/users/Rohanstha555"
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", requrl)
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState)
+        if (xhr.readyState === 4) {
+            console.log(this.responseText);
+            const data = JSON.parse(this.responseText)
+
+            const name = document.querySelector(".name")
+            const followers = document.querySelector("#followers")
+
+            const avatar = document.createElement("img")
+            
+            avatar.src = `${data.avatar_url}`
+            document.body.appendChild(avatar)
+            console.log(avatar);
+            
+            name.innerHTML = `${data.name}`
+            followers.innerHTML = `Followers: ${data.followers}`
+
+
+            
+        }
+
+    }
+    xhr.send()
+</script>
+</html>
